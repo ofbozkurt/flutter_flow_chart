@@ -11,6 +11,9 @@ enum ElementKind {
   oval,
   parallelogram,
   hexagon,
+  dataInput,
+  output,
+  comment,
 }
 
 enum Handler {
