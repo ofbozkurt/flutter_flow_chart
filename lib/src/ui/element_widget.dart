@@ -7,6 +7,9 @@ import '../objects/diamond_widget.dart';
 import '../objects/rectangle_widget.dart';
 import '../objects/storage_widget.dart';
 import '../objects/hexagon_widget.dart';
+import '../objects/data_input_widget.dart';
+import '../objects/output_widget.dart';
+import '../objects/comment_widget.dart';
 import 'resize_widget.dart';
 
 /// Widget that use [element] properties to display it on the dashboard scene
@@ -101,6 +104,15 @@ class _ElementWidgetState extends State<ElementWidget> {
         break;
       case ElementKind.hexagon:
         element = HexagonWidget(element: widget.element);
+        break;
+      case ElementKind.dataInput:
+        element = DataInputWidget(element: widget.element);
+        break;
+      case ElementKind.comment:
+        element = CommentWidget(element: widget.element);
+        break;
+      case ElementKind.output:
+        element = OutputWidget(element: widget.element);
         break;
       case ElementKind.rectangle:
       default:
