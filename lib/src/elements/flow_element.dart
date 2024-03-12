@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import 'connection_params.dart';
 
@@ -88,15 +88,14 @@ class FlowElement extends ChangeNotifier {
       Handler.rightCenter,
       Handler.leftCenter,
     ],
-    // handler size set to 30 for small screens
-    this.handlerSize = 30.0,
+    this.handlerSize = 15.0,
     this.backgroundColor = Colors.white,
     this.borderColor = Colors.blue,
     this.borderThickness = 3,
     this.elevation = 4,
     next,
   })  : next = next ?? [],
-        id = '',
+        id = const Uuid().v4(),
         isResizing = false;
 
   @override
@@ -237,14 +236,14 @@ class FlowElement extends ChangeNotifier {
   factory FlowElement.fromMap(Map<String, dynamic> map) {
     FlowElement e = FlowElement(
       position: Offset(
-        map['positionDx'] as double,
-        map['positionDy'] as double,
+        map['positionDx'].toDouble(),
+        map['positionDy'].toDouble(),
       ),
-      size: Size(map['size.width'] as double, map['size.height'] as double),
+      size: Size(map['size.width'].toDouble(), map['size.height'].toDouble()),
       text: map['text'] as String,
       textColor: Color(map['textColor'] as int),
       fontFamily: map['fontFamily'] as String?,
-      textSize: map['textSize'] as double,
+      textSize: map['textSize'].toDouble(),
       textIsBold: map['textIsBold'] as bool,
       kind: ElementKind.values[map['kind'] as int],
       handlers: List<Handler>.from(
@@ -252,16 +251,18 @@ class FlowElement extends ChangeNotifier {
           (x) => Handler.values[x],
         ),
       ),
-      handlerSize: map['handlerSize'] as double,
+      handlerSize: map['handlerSize'].toDouble(),
       backgroundColor: Color(map['backgroundColor'] as int),
       borderColor: Color(map['borderColor'] as int),
-      borderThickness: map['borderThickness'] as double,
-      elevation: map['elevation'] as double,
-      next: List<ConnectionParams>.from(
-        (map['next'] as List<dynamic>).map<dynamic>(
-          (x) => ConnectionParams.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      borderThickness: map['borderThickness'].toDouble(),
+      elevation: map['elevation'].toDouble(),
+      next: map['next'] != []
+          ? List<ConnectionParams>.from(
+              (map['next'] as List<dynamic>).map<dynamic>(
+                (x) => ConnectionParams.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : [],
     );
     e.setId(map['id'] as String);
     return e;

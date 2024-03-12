@@ -4,9 +4,16 @@ import '../../flutter_flow_chart.dart';
 
 /// Arrow parameters used by [DrawArrow] widget
 class ArrowParams {
+  /// Arrow thickness
   final double thickness;
+
+  /// Arrow color
   final Color color;
+
+  /// The start position alignment
   final Alignment startArrowPosition;
+
+  /// The end position alignment
   final Alignment endArrowPosition;
 
   const ArrowParams({
@@ -43,15 +50,15 @@ class ArrowParams {
 
   factory ArrowParams.fromMap(Map<String, dynamic> map) {
     return ArrowParams(
-      thickness: map['thickness'] as double,
+      thickness: map['thickness'].toDouble(),
       color: Color(map['color'] as int),
       startArrowPosition: Alignment(
-        map['startArrowPositionX'] as double,
-        map['startArrowPositionY'] as double,
+        map['startArrowPositionX'].toDouble(),
+        map['startArrowPositionY'].toDouble(),
       ),
       endArrowPosition: Alignment(
-        map['endArrowPositionX'] as double,
-        map['endArrowPositionY'] as double,
+        map['endArrowPositionX'].toDouble(),
+        map['endArrowPositionY'].toDouble(),
       ),
     );
   }
@@ -62,6 +69,7 @@ class ArrowParams {
       ArrowParams.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
+/// Notifier to update arrows position, starting/ending points and params
 class DrawingArrow extends ChangeNotifier {
   DrawingArrow._();
   static final instance = DrawingArrow._();
