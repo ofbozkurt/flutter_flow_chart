@@ -332,6 +332,47 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           ActionChip(
+              label: const Text('Add Comment'),
+              onPressed: () {
+                dashboard.addElement(FlowElement(
+                    elevation: 0,
+                    position: position - const Offset(50, 25),
+                    size: const Size(150, 100),
+                    // text: '${dashboard.elements.length}',
+                    text: '${dashboard.elements.length}',
+                    kind: ElementKind.comment,
+                    handlers: []));
+              },
+          ),
+          ActionChip(
+              label: const Text('Add Data Input'),
+              onPressed: () {
+                dashboard.addElement(FlowElement(
+                    position: position - const Offset(50, 25),
+                    size: const Size(100, 50),
+                    text: '${dashboard.elements.length}',
+                    kind: ElementKind.dataInput,
+                    handlers: [
+                      Handler.bottomCenter,
+                      Handler.topCenter,
+                    ]));
+              },
+          ),
+          ActionChip(
+              label: const Text('Add Output'),
+              onPressed: () {
+                dashboard.addElement(FlowElement(
+                    position: position - const Offset(50, 25),
+                    size: const Size(100, 50),
+                    text: '${dashboard.elements.length}',
+                    kind: ElementKind.output,
+                    handlers: [
+                      Handler.bottomCenter,
+                      Handler.topCenter,
+                    ]));
+              },
+          ),
+          ActionChip(
             label: const Text('Remove all'),
             onPressed: () {
               dashboard.removeAllElements();
