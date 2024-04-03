@@ -82,7 +82,7 @@ class FlowElement extends ChangeNotifier {
     this.text = '',
     this.textColor = Colors.black,
     this.fontFamily,
-    this.textSize = 24,
+    this.textSize = 20,
     this.textIsBold = false,
     this.kind = ElementKind.rectangle,
     this.handlers = const [
@@ -91,7 +91,7 @@ class FlowElement extends ChangeNotifier {
       Handler.rightCenter,
       Handler.leftCenter,
     ],
-    this.handlerSize = 15.0,
+    this.handlerSize = 30.0,
     this.backgroundColor = Colors.white,
     this.borderColor = Colors.blue,
     this.borderThickness = 3,
