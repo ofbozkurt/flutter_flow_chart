@@ -63,7 +63,7 @@ class _CommentPainter extends CustomPainter {
     canvas.drawPath(path, paint);
 
     paint.strokeWidth = element.borderThickness;
-    paint.color = Colors.black38;
+    paint.color = element.borderColor;
     paint.style = PaintingStyle.stroke;
     canvas.drawPath(path, paint);
   }
