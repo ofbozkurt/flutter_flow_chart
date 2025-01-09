@@ -26,7 +26,7 @@ class RectangleWidget extends StatelessWidget {
                   BoxShadow(
                     color: Colors.black,
                     offset: Offset(element.elevation, element.elevation),
-                    blurRadius: element.elevation * 1.3,
+                    blurRadius: element.elevation * 1.5,
                   ),
               ],
               border: Border.all(
