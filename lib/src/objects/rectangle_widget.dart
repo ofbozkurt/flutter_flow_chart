@@ -20,12 +20,11 @@ class RectangleWidget extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
               color: element.backgroundColor,
               boxShadow: [
                 if (element.elevation > 0.01)
                   BoxShadow(
-                    color: Colors.grey,
+                    color: Colors.black,
                     offset: Offset(element.elevation, element.elevation),
                     blurRadius: element.elevation * 1.3,
                   ),
