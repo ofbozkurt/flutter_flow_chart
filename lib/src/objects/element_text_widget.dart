@@ -14,7 +14,8 @@ class ElementTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Text(
+      child: FittedBox(
+        child: Text(
         element.text,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -23,6 +24,7 @@ class ElementTextWidget extends StatelessWidget {
           fontWeight: element.textIsBold ? FontWeight.bold : FontWeight.normal,
           fontFamily: element.fontFamily,
         ),
+      ),
       ),
     );
   }
