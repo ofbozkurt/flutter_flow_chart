@@ -16,15 +16,15 @@ class ElementTextWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: FittedBox(
         child: Text(
-        element.text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: element.textColor,
-          fontSize: element.textSize,
-          fontWeight: element.textIsBold ? FontWeight.bold : FontWeight.normal,
-          fontFamily: element.fontFamily,
+          element.text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: element.textColor,
+            fontSize: element.textSize,
+            fontWeight: element.textIsBold ? FontWeight.bold : FontWeight.normal,
+            fontFamily: element.fontFamily,
+          ),
         ),
-      ),
       ),
     );
   }
