@@ -128,6 +128,7 @@ class FlowChart extends StatefulWidget {
     this.onLineLongPressed,
     this.onLineSecondaryTapped,
     this.onLineSecondaryLongTapped,
+    this.onScaleUpdate,
     required this.dashboard,
   });
 
@@ -140,17 +141,29 @@ class _FlowChartState extends State<FlowChart> {
   void initState() {
     super.initState();
     widget.dashboard.addListener(_elementChanged);
+    if (widget.onScaleUpdate != null) {
+      widget.dashboard.gridBackgroundParams.addOnScaleUpdateListener(
+        widget.onScaleUpdate!,
+      );
+    }
   }
 
   @override
   void dispose() {
     widget.dashboard.removeListener(_elementChanged);
+    if (widget.onScaleUpdate != null) {
+      widget.dashboard.gridBackgroundParams.removeOnScaleUpdateListener(
+        widget.onScaleUpdate!,
+      );
+    }
     super.dispose();
   }
 
   _elementChanged() {
     if (mounted) setState(() {});
   }
+
+  double _oldScaleUpdateDelta = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -181,10 +194,10 @@ class _FlowChartState extends State<FlowChart> {
           Positioned.fill(
             child: GestureDetector(
               onTapDown: (details) {
-                tapDownPos = details.globalPosition;
+                tapDownPos = details.localPosition;
               },
               onSecondaryTapDown: (details) {
-                secondaryTapDownPos = details.globalPosition;
+                secondaryTapDownPos = details.localPosition;
               },
               onTap: widget.onDashboardTapped == null
                   ? null
@@ -220,6 +233,34 @@ class _FlowChartState extends State<FlowChart> {
                 }
                 widget.dashboard.gridBackgroundParams.offset = details.delta;
                 setState(() {});
+              },
+              onScaleUpdate: (details) {
+                if (details.scale != 1) {
+                  widget.dashboard.setZoomFactor(
+                    details.scale + _oldScaleUpdateDelta,
+                    focalPoint: details.focalPoint,
+                  );
+                }
+
+                widget.dashboard.setDashboardPosition(
+                  widget.dashboard.position + details.focalPointDelta,
+                );
+                for (var i = 0; i < widget.dashboard.elements.length; i++) {
+                  widget.dashboard.elements[i].position +=
+                      details.focalPointDelta;
+                  for (final conn in widget.dashboard.elements[i].next) {
+                    for (final pivot in conn.pivots) {
+                      pivot.pivot += details.focalPointDelta;
+                    }
+                  }
+                }
+
+                widget.dashboard.gridBackgroundParams.offset =
+                    details.focalPointDelta;
+                setState(() {});
+              },
+              onScaleEnd: (details) {
+                _oldScaleUpdateDelta = widget.dashboard.zoomFactor - 1;
               },
               child: GridBackground(
                 key: gridKey,
