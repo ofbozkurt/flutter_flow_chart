@@ -107,6 +107,9 @@ class FlowChart extends StatefulWidget {
   /// main dashboard to use
   final Dashboard dashboard;
 
+  /// Trigger for the scale change
+  final void Function(double scale)? onScaleUpdate;
+
   const FlowChart({
     super.key,
     this.onElementPressed,
